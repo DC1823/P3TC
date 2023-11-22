@@ -1,0 +1,150 @@
+estados_q:
+  lista_:
+    - 'q0'  # Start state, find first 'a'
+    - 'q1'  # Found 'a', looking for 'b'
+    - 'q2'  # Found 'b', moving left to find 'X'
+    - 'q3'  # Moving right to find unmarked 'a'
+    - 'qAccept'  # Accepting state
+    - 'qReject'  # Rejecting state
+  inicial: 'q0'
+  final: 'qAccept'
+alfabeto:
+  - a
+  - b
+cinta_alfabeto:
+  - "#"
+  - "X"
+  - "Y"
+delta:
+  # State q0 transi
+  - parametros:
+      estado_inicial: 'q0'
+      entrada_cinta: a
+    salida:
+      estado_final: 'q1'
+      salida_cinta: X
+      despla_cinta: R
+  - parametros:
+      estado_inicial: 'q0'
+      entrada_cinta: '#'
+    salida:
+      estado_final: 'qReject'
+      salida_cinta: '#'
+      despla_cinta: N
+
+  # State q1 transi
+  - parametros:
+      estado_inicial: 'q1'
+      entrada_cinta: a
+    salida:
+      estado_final: 'q1'
+      salida_cinta: a
+      despla_cinta: R
+  - parametros:
+      estado_inicial: 'q1'
+      entrada_cinta: b
+    salida:
+      estado_final: 'q2'
+      salida_cinta: Y
+      despla_cinta: L
+  - parametros:
+      estado_inicial: 'q1'
+      entrada_cinta: Y
+    salida:
+      estado_final: 'q1'
+      salida_cinta: Y
+      despla_cinta: R
+  - parametros:
+      estado_inicial: 'q1'
+      entrada_cinta: X
+    salida:
+      estado_final: 'q1'
+      salida_cinta: X
+      despla_cinta: R
+
+  # State q2 transi
+  - parametros:
+      estado_inicial: 'q2'
+      entrada_cinta: a
+    salida:
+      estado_final: 'q2'
+      salida_cinta: a
+      despla_cinta: L
+  - parametros:
+      estado_inicial: 'q2'
+      entrada_cinta: X
+    salida:
+      estado_final: 'q3'
+      salida_cinta: X
+      despla_cinta: R
+  - parametros:
+      estado_inicial: 'q2'
+      entrada_cinta: Y
+    salida:
+      estado_final: 'q2'
+      salida_cinta: Y
+      despla_cinta: L
+  - parametros:
+      estado_inicial: 'q2'
+      entrada_cinta: '#'
+    salida:
+      estado_final: 'qReject'
+      salida_cinta: '#'
+      despla_cinta: N
+
+  # State q3 transi
+  - parametros:
+      estado_inicial: 'q3'
+      entrada_cinta: a
+    salida:
+      estado_final: 'q1'
+      salida_cinta: X
+      despla_cinta: R
+  - parametros:
+      estado_inicial: 'q3'
+      entrada_cinta: Y
+    salida:
+      estado_final: 'q3'
+      salida_cinta: Y
+      despla_cinta: R
+  - parametros:
+      estado_inicial: 'q3'
+      entrada_cinta: '#'
+    salida:
+      estado_final: 'qCheck'
+      salida_cinta: '#'
+      despla_cinta: L
+
+  - parametros:
+      estado_inicial: 'qCheck'
+      entrada_cinta: X
+    salida:
+      estado_final: 'qCheck'
+      salida_cinta: X
+      despla_cinta: L
+  - parametros:
+      estado_inicial: 'qCheck'
+      entrada_cinta: Y
+    salida:
+      estado_final: 'qReject'
+      salida_cinta: Y
+      despla_cinta: N
+  - parametros:
+      estado_inicial: 'qCheck'
+      entrada_cinta: '#'
+    salida:
+      estado_final: 'qAccept'
+      salida_cinta: '#'
+      despla_cinta: N
+
+simulador_cadena:
+  - aaaaabbbbb
+  - aaabbb
+  - ab
+  - aab
+  - baaa
+  - aaaaaabbbbb
+  - aaaabbbb
+  - aaaaaabbbbbb
+  - bbaa
+  - aabbb
